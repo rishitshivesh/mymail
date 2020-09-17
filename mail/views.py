@@ -154,7 +154,7 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        username = request.POST["username"] 
+        username = request.POST["username"].lower()
         email = username + "@mymail.com"
 
         # Ensure password matches confirmation
