@@ -4,7 +4,7 @@
         .box {
             border: 2px solid black;
             width: 50%;
-            margin-top: 5%;
+            margin-top: 3%;
             border-radius: 15px;
         }
     }
@@ -24,29 +24,28 @@
 <div class="align-middle">
     <div class="box mx-auto">
         <h2 style="text-align: center; padding:10px;">Register</h2>
-        <hr> {% if message %}
-        <div>{{ message }}</div>
-        {% endif %}
-
+        <hr>
         <form action="{% url 'register' %}" method="post">
             {% csrf_token %}
             <div class="forms d-flex flex-column w-75 p-3 mx-auto">
                 {% if message %}
                 <br>
-                <div class="alert alert-warning">{{ message }}</div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button></div>
                 {% endif %}
                 <div class="input-group mb-3">
-                    <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                    <input class="form-control" autofocus type="text" name="username" placeholder="Username" style="text-transform: lowercase;" required>
                     <div class="input-group-prepend">
                         <span class="input-group-text">@mymail.com</span>
                     </div>
                 </div>
                 <div class="d-inline-flex">
                     <div class="w-50 mb-3">
-                        <input class="form-control " autofocus type="text" name="firstname" placeholder="First Name">
+                        <input class="form-control " autofocus type="text" name="firstname" placeholder="First Name" required>
                     </div>
                     <div class="w-50 mb-3">
-                        <input class="form-control" autofocus type="text" name="lastname" placeholder="Last Name">
+                        <input class="form-control" autofocus type="text" name="lastname" placeholder="Last Name" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,10 +53,10 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" required>
                 </div>
                 <input class="btn btn-primary w-50 mx-auto" type="submit" value="Register">
             </div>

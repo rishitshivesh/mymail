@@ -170,7 +170,7 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username.lower(), email.lower(), password)
             user.first_name = first_name
             user.last_name = last_name
             if(image):
