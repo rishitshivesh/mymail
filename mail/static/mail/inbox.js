@@ -104,6 +104,7 @@ function show_mail(id, mailbox) {
             <div class="card-body streched-link" style="background:rgba(255,250,250,0.5);min-height="100%";>
                 <div class="card-text">
                 <cite>From: </cite>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:17px">${email.sendername}</strong>(${email.sender})<br>
+                <cite>To: </cite>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:17px">${email.recipients}</strong>(${email.recipients})<br>
                 <cite>Subject:&nbsp;&nbsp;</cite> ${email.subject}<br>
                 <cite>Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</cite> ${email.timestamp}<br>
                 </div>
