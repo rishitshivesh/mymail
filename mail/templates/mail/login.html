@@ -1,0 +1,98 @@
+{% extends "mail/layout.html" %} {%block style%}
+<style>
+    @media(min-width:768px) {
+        .box {
+            border: 2px solid black;
+            width: 60%;
+            margin-bottom: 10%;
+            margin-top: 1%;
+            border-radius: 15px;
+        }
+        .typewriter {
+            display: block;
+        }
+    }
+    
+    @media(max-width:768px) {
+        .box {
+            border: 2px solid black;
+            width: 100%;
+            margin-top: 20%;
+            border-radius: 15px;
+        }
+        .typewriter {
+            display: none;
+        }
+    }
+    
+    .typewriter h1 {
+        overflow: hidden;
+        /* Ensures the content is not revealed until the animation */
+        border-right: .15em solid orange;
+        /* The typwriter cursor */
+        white-space: nowrap;
+        /* Keeps the content on a single line */
+        margin: 0 auto;
+        /* Gives that scrolling effect as the typing happens */
+        letter-spacing: .15em;
+        /* Adjust as needed */
+        animation: typing 2.5s steps(1000, end) infinite, blink-caret .4s step-end infinite;
+        animation-direction: alternate;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        margin-top: 7%;
+    }
+    /* The typing effect */
+    
+    @keyframes typing {
+        from {
+            width: 0
+        }
+        to {
+            width: 60%
+        }
+    }
+    /* The typewriter cursor effect */
+    
+    @keyframes blink-caret {
+        from,
+        to {
+            border-color: transparent
+        }
+        50% {
+            border-color: orange;
+        }
+    }
+</style>
+
+{%endblock%} {% block body %}
+
+<center><img src="https://imgur.com/46BphvQ.png" width="300" alt="Image" loading="lazy" style="align-self:center;" class="myclass"></center>
+<div class="typewriter">
+    <h1>Welcome to My Mail!</h1>
+</div>
+<div class="box mx-auto">
+    <div class="align-middle">
+        <h2 style="text-align: center; padding:10px;">Login</h2>
+        <hr> {% if message %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button></div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post" class="w-75 mx-auto" style="text-align:center;">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">@mymail.com</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
+        <hr>
+        <div style="text-align: center;padding-bottom:15px;">Don't have an account? <a href="{% url 'register' %}">Register here.</a> {% endblock %}</div>
+    </div>
+</div>

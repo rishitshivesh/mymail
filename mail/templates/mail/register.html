@@ -1,0 +1,71 @@
+{% extends "mail/layout.html" %} {%block style%}
+<style>
+    @media(min-width:1000px) {
+        .box {
+            border: 2px solid black;
+            width: 50%;
+            margin-top: 5%;
+            border-radius: 15px;
+        }
+    }
+    
+    @media(max-width:1000px) {
+        .box {
+            border: 2px solid black;
+            width: 100%;
+            margin-top: 2%;
+            border-radius: 15px;
+        }
+    }
+</style>
+
+{%endblock%} {% block body %}
+<center><img src="https://imgur.com/46BphvQ.png" width="300" alt="Image" loading="lazy" style="align-self:center;" class="myclass"></center>
+<div class="align-middle">
+    <div class="box mx-auto">
+        <h2 style="text-align: center; padding:10px;">Register</h2>
+        <hr> {% if message %}
+        <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="forms d-flex flex-column w-75 p-3 mx-auto">
+                {% if message %}
+                <br>
+                <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                <div class="input-group mb-3">
+                    <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@mymail.com</span>
+                    </div>
+                </div>
+                <div class="d-inline-flex">
+                    <div class="w-50 mb-3">
+                        <input class="form-control " autofocus type="text" name="firstname" placeholder="First Name">
+                    </div>
+                    <div class="w-50 mb-3">
+                        <input class="form-control" autofocus type="text" name="lastname" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" placeholder="Profile Picture URL">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                </div>
+                <input class="btn btn-primary w-50 mx-auto" type="submit" value="Register">
+            </div>
+        </form>
+
+
+
+        <hr>
+        <div style="text-align: center;padding-bottom:15px;">Already have an account? <a href="{% url 'login' %}">Log In here.</a> </div>
+    </div>
+</div>{% endblock %}

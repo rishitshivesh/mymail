@@ -1,0 +1,167 @@
+{% extends "mail/layout.html" %} {% load static %} {% block body %}
+<br>
+<br> {%block style%}
+<style>
+    @media(min-width:1000px) {
+        .navbar-nav {
+            padding-left: 15%;
+        }
+        .nav-item {
+            padding: 2px;
+        }
+        #big {
+            display: block;
+        }
+        #small {
+            display: none;
+        }
+    }
+    
+    @media(max-width:1000px) {
+        #emails-view {
+            width: 100%;
+        }
+        #big {
+            display: none;
+        }
+        #small {
+            display: block;
+        }
+    }
+</style>
+{%endblock%}
+<div id="big">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class="navbar-brand" href={% url 'index' %}>
+            <img src="{%static 'mail/MailBig.png'%}" width="150" alt="Image" loading="lazy">
+
+        </a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
+
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+
+            </li>
+            <li class="nav-item">
+
+            </li>
+        </ul>
+        <div class="float-right ml-auto">
+
+            {%if request.user.image%}
+            <img src="{{request.user.image}}" width='40px' class="rounded-circle"> {%else%}
+            <img src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png" width='30px'> {%endif%}
+
+
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           {% if request.user.is_authenticated and request.user.first_name%}
+                Signed in as <strong>{{ request.user.first_name}} {{request.user.last_name}}</strong>
+                {% elif request.user.is_authenticated and not user.first_name%} 
+                Signed in as <strong>{{ request.user.username}}</strong> {% endif %}
+        </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{%url 'profile'%}">View Your Profile</a>
+                    <a class="dropdown-item" href="{%url 'about'%}">About Us</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item hov" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="small">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class="navbar-brand" href={% url 'index' %}>
+            <img src="{%static 'mail/MailBig.png'%}" width="100" alt="Image" loading="lazy">
+
+        </a>
+
+        <div class="float-right ml-auto">
+
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           {% if request.user.is_authenticated and request.user.first_name%}
+               <strong>{{ request.user.first_name}} {{request.user.last_name}}</strong>
+                {% elif request.user.is_authenticated and not user.first_name%} 
+                <strong>{{ request.user.username}}</strong> {% endif %}
+        </button>
+                <div class="dropdown-menu" style="padding-left: 5%;">
+                    <a class="dropdown-item" href="{%url 'profile'%}">View Your Profile</a>
+                    <a class="dropdown-item" href="{%url 'about'%}">About Us</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item hov" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>
+            {%if request.user.image%}
+            <img src="{{request.user.image}}" width='40px' class="rounded-circle"> {%else%}
+            <img src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png" width='30px'> {%endif%}
+
+        </div>
+    </nav>
+    <center>
+        <div class="btn-group mx-auto">
+            <button class="btn btn-sm btn-outline-primary" id="inbox2">Inbox</button>
+            <button class="btn btn-sm btn-outline-primary" id="compose2">Compose</button>
+            <button class="btn btn-sm btn-outline-primary" id="sent2">Sent</button>
+            <button class="btn btn-sm btn-outline-primary" id="archived2">Archived</button>
+        </div>
+    </center>
+</div>
+
+
+
+
+
+
+<hr>
+
+
+<div id="emails-view">
+</div>
+<div id="emails-content">
+    <ul type="none" id="emails-data">
+    </ul>
+</div>
+
+<div id="compose-view" class="">
+    <center>
+        <h3>New Email</h3>
+    </center>
+    <hr>
+    <div id="message"></div>
+    <form id="compose-form">
+        <div class="form-group">
+            From: <input disabled class="form-control" value="{{ request.user.email }}" style="background:rgba(255,245,240);">
+        </div>
+        <div class="form-group">
+            To: <input id="compose-recipients" class="form-control" style="background:rgba(255,250,250,0.6);" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="compose-subject" placeholder="Subject" style="background:rgba(255,250,250,0.6);">
+        </div>
+        <textarea class="form-control" id="compose-body" placeholder="Body" style="background:rgba(255,250,250,0.6);"></textarea>
+        <br>
+        <center><input type="submit" class="btn btn-primary" /></center>
+    </form>
+</div>
+{% endblock %} {% block script %}
+<script src="{% static 'mail/inbox.js' %}"></script>
+<script src="{% static 'mail/compose.js' %}"></script>
+{% endblock %}
