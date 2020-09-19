@@ -191,3 +191,15 @@ def profile(request):
     return render(request,"mail/profile.html")
 def about(request):
     return render(request,"mail/about.html")
+def edit(request):
+    user = User.objects.get(username=request.user.username)
+    if (request.method == "POST"):
+        first_name = request.POST["firstname"]
+        last_name = request.POST["lastname"]
+        image = request.POST["image"]
+        user.first_name = first_name
+        user.last_name = last_name
+        user.image = image
+        user.save()
+        return HttpResponseRedirect(reverse("index"))
+    return render(request,"mail/edit.html")
